@@ -1,5 +1,5 @@
 [package]
-name = "wcomm-rs"
+name = "wcomm"
 version = "0.1.0"
 edition = "2021"
 
