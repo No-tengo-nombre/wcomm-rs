@@ -2,7 +2,7 @@ use wcomm::channels::{Channel, Sound};
 use wcomm::modulation::MFSK;
 
 fn main() {
-    let modulation = MFSK::new();
+    let modulation = MFSK::new(16);
     let channel = Sound::new(&modulation);
 
     let time = 20;
