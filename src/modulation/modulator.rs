@@ -1,6 +1,19 @@
-use crate::Message;
 use crate::channels::Channel;
+use crate::Message;
 
 pub trait Modulator {
-    fn send_through_channel(&self, channel: &dyn Channel, msg: Message, time: u32);
+    fn get_name(&self) -> String;
+    fn send_msg(&self, channel: &dyn Channel, msg: &Message, time: u32);
+    fn split(&self, msg: &Message) -> Vec<u32>;
+    fn calculate_frequency(&self, key: u32) -> u32;
+
+    fn get_name_msg(&self) -> Message {
+        return Message::new().data(&self.get_name());
+    }
+
+    fn send_name(&self, channel: &dyn Channel, time: u32) {
+        for key in self.split(&self.get_name_msg()) {
+            channel.play(self.calculate_frequency(key), time);
+        }
+    }
 }

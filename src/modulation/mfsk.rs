@@ -1,6 +1,7 @@
-use crate::Message;
 use crate::channels::Channel;
 use crate::modulation::Modulator;
+use crate::utils::math;
+use crate::Message;
 
 pub struct MFSK {
     _size: u32,
@@ -10,7 +11,27 @@ pub struct MFSK {
 }
 
 impl Modulator for MFSK {
-    fn send_through_channel(&self, channel: &dyn Channel, msg: Message, time: u32) {}
+    fn get_name(&self) -> String {
+        return format!("{}-FSK", self._size);
+    }
+
+    fn send_msg(&self, channel: &dyn Channel, msg: &Message, time: u32) {
+        for key in self.split(msg) {
+            channel.play(self.calculate_frequency(key), time);
+        }
+    }
+
+    fn split(&self, message: &Message) -> Vec<u32> {
+        let mut result = Vec::<u32>::new();
+        for b in message.group(math::log2(self._size)) {
+            result.push(isize::from_str_radix(&b, 2).unwrap() as u32);
+        }
+        return result;
+    }
+
+    fn calculate_frequency(&self, key: u32) -> u32 {
+        return self._base_frequency + key * self._delta_frequency;
+    }
 }
 
 impl MFSK {
