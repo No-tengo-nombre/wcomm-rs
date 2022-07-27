@@ -115,8 +115,8 @@ impl<'a> Sound<'a> {
         for key in self._modulator.split(msg) {
             for t in 0..(time * self._modulator.get_sampling_frequency() / 1000) {
                 data.push(
-                    2_f32 * PI * ((self._modulator.calculate_frequency(key) * t) as f32)
-                        / self._modulator.get_sampling_frequency() as f32,
+                    (2_f32 * PI * ((self._modulator.calculate_frequency(key) * t) as f32)
+                        / self._modulator.get_sampling_frequency() as f32).cos(),
                 );
             }
         }
@@ -124,10 +124,10 @@ impl<'a> Sound<'a> {
         // Export the data
         let mut out_file = File::create(Path::new(filename)).unwrap();
         let header = wav::Header::new(
-            wav::header::WAV_FORMAT_PCM,
+            wav::header::WAV_FORMAT_IEEE_FLOAT,
             1,
             self._modulator.get_sampling_frequency(),
-            16,
+            32,
         );
         let out_data = wav::BitDepth::ThirtyTwoFloat(data);
         wav::write(header, &out_data, &mut out_file).unwrap();
