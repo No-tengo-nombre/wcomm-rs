@@ -7,6 +7,7 @@ pub trait Modulator {
     fn send_msg(&self, channel: &dyn Channel, msg: &Message, time: u32);
     fn split(&self, msg: &Message) -> Vec<u32>;
     fn calculate_frequency(&self, key: u32) -> u32;
+    fn get_raw_data(&self, msg: &Message, time: u32) -> Vec<f32>;
 
     fn get_name_msg(&self) -> Message {
         return Message::new().data(&self.get_name());

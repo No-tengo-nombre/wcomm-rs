@@ -1,6 +1,6 @@
 use crate::channels::Channel;
 use crate::modulation::Modulator;
-use crate::utils::math::PI;
+// use crate::utils::math::PI;
 use crate::Message;
 use anyhow;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
@@ -111,15 +111,7 @@ impl<'a> Sound<'a> {
 
     pub fn export_wav(&self, msg: &Message, filename: &str, time: u32) {
         // Obtain the data for the file
-        let mut data = Vec::<f32>::new();
-        for key in self._modulator.split(msg) {
-            for t in 0..(time * self._modulator.get_sampling_frequency() / 1000) {
-                data.push(
-                    (2_f32 * PI * ((self._modulator.calculate_frequency(key) * t) as f32)
-                        / self._modulator.get_sampling_frequency() as f32).cos(),
-                );
-            }
-        }
+        let data = self._modulator.get_raw_data(msg, time);
 
         // Export the data
         let mut out_file = File::create(Path::new(filename)).unwrap();
