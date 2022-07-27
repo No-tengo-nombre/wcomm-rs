@@ -1,4 +1,4 @@
-use wcomm::channels::{Channel, Sound};
+use wcomm::channels::Sound;
 use wcomm::modulation::MFSK;
 use wcomm::Message;
 
