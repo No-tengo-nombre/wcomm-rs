@@ -44,7 +44,7 @@ impl MFSK {
             _size: size,
             _base_frequency: 300,
             _delta_frequency: 100,
-            _sampling_frequency: 441000,
+            _sampling_frequency: 44_100,
         };
     }
 
