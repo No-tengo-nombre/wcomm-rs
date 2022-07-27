@@ -12,7 +12,7 @@ pub struct MFSK {
 
 impl Modulator for MFSK {
     fn get_name(&self) -> String {
-        return format!("{}-FSK", self._size);
+        return format!("{}FSK", self._size);
     }
 
     fn send_msg(&self, channel: &dyn Channel, msg: &Message, time: u32) {
