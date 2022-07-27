@@ -15,6 +15,10 @@ impl Modulator for MFSK {
         return format!("{}FSK", self._size);
     }
 
+    fn get_sampling_frequency(&self) -> u32 {
+        return self._sampling_frequency;
+    }
+
     fn send_msg(&self, channel: &dyn Channel, msg: &Message, time: u32) {
         for key in self.split(msg) {
             channel.play(self.calculate_frequency(key), time);
