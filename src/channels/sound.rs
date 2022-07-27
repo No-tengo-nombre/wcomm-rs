@@ -1,9 +1,13 @@
 use crate::channels::Channel;
 use crate::modulation::Modulator;
+use crate::utils::math::PI;
 use crate::Message;
 use anyhow;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use fundsp::hacker::*;
+use std::fs::File;
+use std::path::Path;
+use wav;
 
 fn run<T>(
     device: &cpal::Device,
@@ -66,8 +70,8 @@ pub struct Sound<'a> {
 }
 
 impl<'a> Channel for Sound<'a> {
-    fn send(&self, msg: Message, time: u32) {
-        self._modulator.send_through_channel(self, msg, time);
+    fn send(&self, msg: &Message, time: u32) {
+        self._modulator.send_msg(self, msg, time);
     }
 
     fn play(&self, frequency: u32, time: u32) {
@@ -103,5 +107,29 @@ impl<'a> Sound<'a> {
             _device: device,
             _config: config,
         };
+    }
+
+    pub fn export_wav(&self, msg: &Message, filename: &str, time: u32) {
+        // Obtain the data for the file
+        let mut data = Vec::<f32>::new();
+        for key in self._modulator.split(msg) {
+            for t in 0..(time * self._modulator.get_sampling_frequency() / 1000) {
+                data.push(
+                    2_f32 * PI * ((self._modulator.calculate_frequency(key) * t) as f32)
+                        / self._modulator.get_sampling_frequency() as f32,
+                );
+            }
+        }
+
+        // Export the data
+        let mut out_file = File::create(Path::new(filename)).unwrap();
+        let header = wav::Header::new(
+            wav::header::WAV_FORMAT_PCM,
+            1,
+            self._modulator.get_sampling_frequency(),
+            16,
+        );
+        let out_data = wav::BitDepth::ThirtyTwoFloat(data);
+        wav::write(header, &out_data, &mut out_file).unwrap();
     }
 }
