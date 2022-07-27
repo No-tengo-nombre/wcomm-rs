@@ -109,6 +109,11 @@ impl<'a> Sound<'a> {
         };
     }
 
+    pub fn modulator(mut self, new_mod: &'a dyn Modulator) -> Sound {
+        self._modulator = new_mod;
+        return self;
+    }
+
     pub fn export_wav(&self, msg: &Message, filename: &str, time: u32) {
         // Obtain the data for the file
         let data = self._modulator.get_raw_data(msg, time);
