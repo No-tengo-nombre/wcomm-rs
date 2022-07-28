@@ -3,7 +3,7 @@ use wcomm::modulation::MFSK;
 use wcomm::Message;
 
 fn main() {
-    let msg = Message::new().data("Tu eres menso");
+    let msg = Message::new().data("Hello world!");
 
     let time = 100;
 
