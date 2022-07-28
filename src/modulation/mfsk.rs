@@ -19,18 +19,14 @@ impl Modulator for MFSK {
         return self._sampling_frequency;
     }
 
+    fn get_size(&self) -> u32 {
+        return self._size;
+    }
+
     fn send_msg(&self, channel: &dyn Channel, msg: &Message, time: u32) {
         for key in self.split(msg) {
             channel.play(self.calculate_frequency(key), time);
         }
-    }
-
-    fn split(&self, message: &Message) -> Vec<u32> {
-        let mut result = Vec::<u32>::new();
-        for b in message.group(math::log2(self._size)) {
-            result.push(isize::from_str_radix(&b, 2).unwrap() as u32);
-        }
-        return result;
     }
 
     fn calculate_frequency(&self, key: u32) -> u32 {
