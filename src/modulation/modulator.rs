@@ -12,7 +12,7 @@ pub trait Modulator {
     fn split(&self, msg: &Message) -> Vec<u32> {
         let mut result = Vec::<u32>::new();
         for b in msg.group(math::log2(self.get_size())) {
-            result.push(isize::from_str_radix(&b, 2).unwrap() as u32);
+            result.push(u32::from_str_radix(&b, 2).unwrap());
         }
         return result;
     }
