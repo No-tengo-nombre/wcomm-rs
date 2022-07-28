@@ -29,10 +29,6 @@ impl Modulator for MFSK {
         }
     }
 
-    fn calculate_frequency(&self, key: u32) -> u32 {
-        return self._base_frequency + key * self._delta_frequency;
-    }
-
     fn get_raw_data(&self, msg: &Message, time: u32) -> Vec<f32> {
         let mut data = Vec::<f32>::new();
         for key in self.split(msg) {
@@ -75,5 +71,9 @@ impl MFSK {
     pub fn sampling_frequency(mut self, new_samp_freq: u32) -> MFSK {
         self._sampling_frequency = new_samp_freq;
         return self;
+    }
+
+    fn calculate_frequency(&self, key: u32) -> u32 {
+        return self._base_frequency + key * self._delta_frequency;
     }
 }
