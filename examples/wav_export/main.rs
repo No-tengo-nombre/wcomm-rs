@@ -3,7 +3,10 @@ use wcomm::modulation::{MFSK, MQAM};
 use wcomm::Message;
 
 fn main() {
-    let msg = Message::new().data("Hello world!");
+    let msg = Message::new().data("Peter Piper picked a peck of pickled peppers
+A peck of pickled peppers Peter Piper picked
+If Peter Piper picked a peck of pickled peppers
+Where's the peck of pickled peppers Peter Piper picked?");
 
     let time = 100;
 
