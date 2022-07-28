@@ -1,4 +1,6 @@
+use crate::channels::Channel;
 use crate::modulation::Modulator;
+use crate::Message;
 
 pub struct MQAM {
     _size: u32,
@@ -25,6 +27,7 @@ impl Modulator for MQAM {
 
     fn get_raw_data(&self, msg: &Message, time: u32) -> Vec<f32> {
         // TODO
+        return Vec::new();
     }
 }
 
@@ -37,18 +40,23 @@ impl MQAM {
         };
     }
 
-    pub fn size(mut self, new_size: u32) -> MFSK {
+    pub fn size(mut self, new_size: u32) -> MQAM {
         self._size = new_size;
         return self;
     }
 
-    pub fn base_frequency(mut self, new_base_freq: u32) -> MFSK {
+    pub fn base_frequency(mut self, new_base_freq: u32) -> MQAM {
         self._base_frequency = new_base_freq;
         return self;
     }
 
-    pub fn sampling_frequency(mut self, new_samp_freq: u32) -> MFSK {
+    pub fn sampling_frequency(mut self, new_samp_freq: u32) -> MQAM {
         self._sampling_frequency = new_samp_freq;
         return self;
+    }
+
+    pub fn calculate_amplitude(&self, key: u32) -> u32 {
+        // TODO
+        return 0;
     }
 }
