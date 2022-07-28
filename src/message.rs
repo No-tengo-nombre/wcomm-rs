@@ -106,7 +106,7 @@ impl Message {
     pub fn as_u8_array(&self) -> Vec<u8> {
         let mut result = Vec::<u8>::new();
         for c in self.group(8) {
-            result.push(isize::from_str_radix(&c, 2).unwrap().try_into().unwrap());
+            result.push(u8::from_str_radix(&c, 2).unwrap());
         }
         return result;
     }
@@ -114,7 +114,7 @@ impl Message {
     pub fn data_as_u8_array(&self) -> Vec<u8> {
         let mut result = Vec::<u8>::new();
         for c in self.group_data(8) {
-            result.push(isize::from_str_radix(&c, 2).unwrap().try_into().unwrap());
+            result.push(u8::from_str_radix(&c, 2).unwrap());
         }
         return result;
     }
@@ -122,7 +122,7 @@ impl Message {
     pub fn header_as_u8_array(&self) -> Vec<u8> {
         let mut result = Vec::<u8>::new();
         for c in self.group_header(8) {
-            result.push(isize::from_str_radix(&c, 2).unwrap().try_into().unwrap());
+            result.push(u8::from_str_radix(&c, 2).unwrap());
         }
         return result;
     }
