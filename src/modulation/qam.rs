@@ -72,12 +72,32 @@ impl MQAM {
     }
 
     pub fn calculate_amplitude_cos(&self, key: u32) -> f32 {
-        // TODO
-        return 0.0;
+        let mut binary = format!("{:b}", key);
+
+        // Preppend with zeros
+        while (binary.len() as u32) < math::log2(self._size) {
+            binary = format!("0{binary}");
+        }
+        let first = &binary[..binary.len() / 2];
+        let first_num = u32::from_str_radix(&first, 2).unwrap();
+
+        // Transform from gray code to indices
+        let first_decoded = math::gray_to_num(first_num);
+        return -(self._size as f32).sqrt() + (1 + 2 * first_decoded) as f32;
     }
 
     pub fn calculate_amplitude_sin(&self, key: u32) -> f32 {
-        // TODO
-        return 0.0;
+        let mut binary = format!("{:b}", key);
+
+        // Preppend with zeros
+        while (binary.len() as u32) < math::log2(self._size) {
+            binary = format!("0{binary}");
+        }
+        let last = &binary[binary.len() / 2..];
+        let last_num = u32::from_str_radix(&last, 2).unwrap();
+
+        // Transform from gray code to indices
+        let last_decoded = math::gray_to_num(last_num);
+        return -(self._size as f32).sqrt() + (1 + 2 * last_decoded) as f32;
     }
 }
