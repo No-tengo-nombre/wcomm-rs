@@ -35,11 +35,9 @@ impl Modulator for MFSK {
         let samples_per_char = time * self.get_sampling_frequency() / 1000;
 
         for t in 0..(split_msg.len() as u32 * samples_per_char) {
-            let key = t / samples_per_char;
+            let key = split_msg[(t / samples_per_char) as usize];
             data.push(
-                (2_f32
-                    * math::PI
-                    * ((self.calculate_frequency(split_msg[key as usize]) * t) as f32)
+                (2_f32 * math::PI * ((self.calculate_frequency(key) * t) as f32)
                     / self.get_sampling_frequency() as f32)
                     .cos(),
             );
