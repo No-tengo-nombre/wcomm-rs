@@ -1,5 +1,6 @@
 use crate::channels::Channel;
 use crate::modulation::Modulator;
+use crate::utils::math;
 use crate::Message;
 
 pub struct MQAM {
@@ -26,8 +27,23 @@ impl Modulator for MQAM {
     }
 
     fn get_raw_data(&self, msg: &Message, time: u32) -> Vec<f32> {
-        // TODO
-        return Vec::new();
+        let mut data = Vec::<f32>::new();
+        let split_msg = self.split(msg);
+        let samples_per_char = time * self.get_sampling_frequency() / 1000;
+
+        for t in 0..(split_msg.len() as u32 * samples_per_char) {
+            let key = split_msg[(t / samples_per_char) as usize];
+            let cos_component = self.calculate_amplitude_cos(key)
+                * (2_f32 * math::PI * ((self._base_frequency * t) as f32)
+                    / self.get_sampling_frequency() as f32)
+                    .cos();
+            let sin_component = self.calculate_amplitude_sin(key)
+                * (2_f32 * math::PI * ((self._base_frequency * t) as f32)
+                    / self.get_sampling_frequency() as f32)
+                    .sin();
+            data.push(cos_component + sin_component);
+        }
+        return data;
     }
 }
 
@@ -55,8 +71,13 @@ impl MQAM {
         return self;
     }
 
-    pub fn calculate_amplitude(&self, key: u32) -> u32 {
+    pub fn calculate_amplitude_cos(&self, key: u32) -> f32 {
         // TODO
-        return 0;
+        return 0.0;
+    }
+
+    pub fn calculate_amplitude_sin(&self, key: u32) -> f32 {
+        // TODO
+        return 0.0;
     }
 }
