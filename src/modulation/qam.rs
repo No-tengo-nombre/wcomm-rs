@@ -1,5 +1,5 @@
 use crate::channels::Channel;
-use crate::modulation::Modulator;
+use crate::modulation::DigitalModulator;
 use crate::utils::math;
 use crate::Message;
 
@@ -12,7 +12,7 @@ pub struct MQAM {
     _sampling_frequency: u32,
 }
 
-impl Modulator for MQAM {
+impl DigitalModulator for MQAM {
     fn get_name(&self) -> String {
         return format!("{}QAM", self._size);
     }

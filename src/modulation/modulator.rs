@@ -5,7 +5,7 @@ use crate::utils::math;
 /**
  * Any type of digital modulator.
  */
-pub trait Modulator {
+pub trait DigitalModulator {
     /**
      * Get the ASCII name of the modulator (e.g, "256FSK").
      */

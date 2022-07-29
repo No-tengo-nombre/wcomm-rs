@@ -1,5 +1,5 @@
 use crate::channels::Channel;
-use crate::modulation::Modulator;
+use crate::modulation::DigitalModulator;
 use crate::Message;
 use anyhow;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
@@ -65,7 +65,7 @@ where
  * Channel to play messages through sound.
  */
 pub struct Sound<'a> {
-    _modulator: &'a dyn Modulator,
+    _modulator: &'a dyn DigitalModulator,
     _host: cpal::Host,
     _device: cpal::Device,
     _config: cpal::SupportedStreamConfig,
@@ -99,7 +99,7 @@ impl<'a> Sound<'a> {
     /**
      * Create a sound channel with an attached modulator.
      */
-    pub fn new(modulator: &dyn Modulator) -> Sound {
+    pub fn new(modulator: &dyn DigitalModulator) -> Sound {
         let host = cpal::default_host();
         let device = host
             .default_output_device()
@@ -117,7 +117,7 @@ impl<'a> Sound<'a> {
     /**
      * Set the modulator of the channel.
      */
-    pub fn modulator(mut self, new_mod: &'a dyn Modulator) -> Sound {
+    pub fn modulator(mut self, new_mod: &'a dyn DigitalModulator) -> Sound {
         self._modulator = new_mod;
         return self;
     }

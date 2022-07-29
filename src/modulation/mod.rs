@@ -3,5 +3,5 @@ pub mod modulator;
 pub mod qam;
 
 pub use fsk::MFSK;
-pub use modulator::Modulator;
+pub use modulator::DigitalModulator;
 pub use qam::MQAM;
