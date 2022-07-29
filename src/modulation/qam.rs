@@ -3,6 +3,9 @@ use crate::modulation::Modulator;
 use crate::utils::math;
 use crate::Message;
 
+/**
+ * M-ary Quadrature Amplitude Modulation.
+ */
 pub struct MQAM {
     _size: u32,
     _base_frequency: u32,
@@ -48,6 +51,9 @@ impl Modulator for MQAM {
 }
 
 impl MQAM {
+    /**
+     * Create a new instance of `MQAM` with the given size and carrier frequency.
+     */
     pub fn new(size: u32, carrier_freq: u32) -> MQAM {
         return MQAM {
             _size: size,
@@ -56,21 +62,33 @@ impl MQAM {
         };
     }
 
+    /**
+     * Set the size of the modulator.
+     */
     pub fn size(mut self, new_size: u32) -> MQAM {
         self._size = new_size;
         return self;
     }
 
+    /**
+     * Set the base frequency/carrier frequency of the modulator.
+     */
     pub fn base_frequency(mut self, new_base_freq: u32) -> MQAM {
         self._base_frequency = new_base_freq;
         return self;
     }
 
+    /**
+     * Set the sampling frequency of the modulator.
+     */
     pub fn sampling_frequency(mut self, new_samp_freq: u32) -> MQAM {
         self._sampling_frequency = new_samp_freq;
         return self;
     }
 
+    /**
+     * Calculate the amplitude of the in-phase component for the given key.
+     */
     pub fn calculate_amplitude_cos(&self, key: u32) -> f32 {
         let mut binary = format!("{:b}", key);
 
@@ -86,6 +104,9 @@ impl MQAM {
         return -(self._size as f32).sqrt() + (1 + 2 * first_decoded) as f32;
     }
 
+    /**
+     * Calculate the amplitude of the quadrature component for the given key.
+     */
     pub fn calculate_amplitude_sin(&self, key: u32) -> f32 {
         let mut binary = format!("{:b}", key);
 

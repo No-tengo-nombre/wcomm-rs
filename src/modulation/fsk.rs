@@ -3,6 +3,9 @@ use crate::modulation::Modulator;
 use crate::utils::math;
 use crate::Message;
 
+/**
+ * M-ary Frequency Shift Keying modulation.
+ */
 pub struct MFSK {
     _size: u32,
     _base_frequency: u32,
@@ -47,6 +50,9 @@ impl Modulator for MFSK {
 }
 
 impl MFSK {
+    /**
+     * Create an instance of `MFSK` with the given size.
+     */
     pub fn new(size: u32) -> MFSK {
         return MFSK {
             _size: size,
@@ -56,26 +62,41 @@ impl MFSK {
         };
     }
 
+    /**
+     * Set the size of the modulator.
+     */
     pub fn size(mut self, new_size: u32) -> MFSK {
         self._size = new_size;
         return self;
     }
 
+    /**
+     * Set the base frequency of the modulator.
+     */
     pub fn base_frequency(mut self, new_base_freq: u32) -> MFSK {
         self._base_frequency = new_base_freq;
         return self;
     }
 
+    /**
+     * Set the difference in frequency between each packet of bits.
+     */
     pub fn delta_frequency(mut self, new_delta_freq: u32) -> MFSK {
         self._delta_frequency = new_delta_freq;
         return self;
     }
 
+    /**
+     * Set the sampling frequency of the modulator.
+     */
     pub fn sampling_frequency(mut self, new_samp_freq: u32) -> MFSK {
         self._sampling_frequency = new_samp_freq;
         return self;
     }
 
+    /**
+     * Calculate the frequency asociated to a given key.
+     */
     fn calculate_frequency(&self, key: u32) -> u32 {
         return self._base_frequency + key * self._delta_frequency;
     }

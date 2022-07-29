@@ -1,6 +1,5 @@
 use crate::channels::Channel;
 use crate::modulation::Modulator;
-// use crate::utils::math::PI;
 use crate::Message;
 use anyhow;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
@@ -62,6 +61,9 @@ where
     }
 }
 
+/**
+ * Channel to play messages through sound.
+ */
 pub struct Sound<'a> {
     _modulator: &'a dyn Modulator,
     _host: cpal::Host,
@@ -94,6 +96,9 @@ impl<'a> Channel for Sound<'a> {
 }
 
 impl<'a> Sound<'a> {
+    /**
+     * Create a sound channel with an attached modulator.
+     */
     pub fn new(modulator: &dyn Modulator) -> Sound {
         let host = cpal::default_host();
         let device = host
@@ -109,11 +114,17 @@ impl<'a> Sound<'a> {
         };
     }
 
+    /**
+     * Set the modulator of the channel.
+     */
     pub fn modulator(mut self, new_mod: &'a dyn Modulator) -> Sound {
         self._modulator = new_mod;
         return self;
     }
 
+    /**
+     * Export the modulated message to a wav file.
+     */
     pub fn export_wav(&self, msg: &Message, filename: &str, time: u32) {
         // Obtain the data for the file
         let data = self._modulator.get_raw_data(msg, time);
