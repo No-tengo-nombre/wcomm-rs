@@ -38,3 +38,6 @@ Cargo.lock
 
 # Ignore code-workspaces
 *.code-workspace
+
+### My own stuff ###
+TODO.md
