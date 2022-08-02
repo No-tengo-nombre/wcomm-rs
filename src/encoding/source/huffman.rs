@@ -15,13 +15,34 @@ impl SourceCoding for HuffmanCoding {
     }
 
     fn encode(&self, msg: &Message) -> Message {
-        // TODO: Implement this
-        return Message::new();
+        let mut output = "".to_string();
+        for i in msg.as_u8_array() {
+            output += &self._code[&i];
+        }
+        return Message::from_binary(&output, msg.get_header());
     }
 
-    fn decode(&self, msg: &Message) -> Message {
-        // TODO: Implement this
-        return Message::new();
+    fn decode(&self, msg: &Message, header_size: u32) -> Message {
+        let decode_dict = self.inverted_code();
+        let mut output = "".to_string();
+        let mut temp = "".to_string();
+
+        let data = msg.get_data();
+        let iter_msg = Message::from_binary(
+            &data[(header_size as usize)..],
+            &(msg.get_header().to_string() + &data[..(header_size as usize)]),
+        );
+
+        for b in iter_msg.as_binary().chars() {
+            temp += &String::from(b);
+            if decode_dict.contains_key(&temp) {
+                output += &String::from(decode_dict[&temp] as char);
+                temp = "".to_string();
+            }
+        }
+
+        let out_msg = Message::from_string(&output, &iter_msg.get_header());
+        return out_msg;
     }
 }
 
@@ -35,6 +56,14 @@ impl HuffmanCoding {
     pub fn code(mut self, new_code: HashMap<u8, String>) -> HuffmanCoding {
         self._code = new_code;
         return self;
+    }
+
+    pub fn inverted_code(&self) -> HashMap<String, u8> {
+        let mut output = HashMap::<String, u8>::new();
+        for vals in self._code.clone() {
+            output.insert(vals.1, vals.0);
+        }
+        return output;
     }
 }
 
@@ -103,26 +132,42 @@ fn make_tree(freq_map: &HashMap<u8, u32>) -> (HuffmanTreeNode, u32) {
     return result[0].clone();
 }
 
-fn make_huffman_map(tree_root: &HuffmanTreeNode, binary_code: Option<String>) -> HashMap<u8, String> {
+fn make_huffman_map(
+    tree_root: &HuffmanTreeNode,
+    binary_code: Option<String>,
+) -> HashMap<u8, String> {
     match tree_root._data {
         Some(val) => {
             let mut output = HashMap::new();
-            output.insert(val, match binary_code {
-                Some(code) => code,
-                None => "".to_string(),
-            });
+            output.insert(
+                val,
+                match binary_code {
+                    Some(code) => code,
+                    None => "".to_string(),
+                },
+            );
             output
-        },
+        }
         None => {
             let children = tree_root.get_children();
-            let mut left_map = make_huffman_map(&(**children.0).clone(), Some(match binary_code.clone() {
-                Some(code) => code,
-                None => "".to_string(),
-            } + "0"));
-            let right_map = make_huffman_map(&(**children.1).clone(), Some(match binary_code.clone() {
-                Some(code) => code,
-                None => "".to_string(),
-            } + "1"));
+            let mut left_map = make_huffman_map(
+                &(**children.0).clone(),
+                Some(
+                    match binary_code.clone() {
+                        Some(code) => code,
+                        None => "".to_string(),
+                    } + "0",
+                ),
+            );
+            let right_map = make_huffman_map(
+                &(**children.1).clone(),
+                Some(
+                    match binary_code.clone() {
+                        Some(code) => code,
+                        None => "".to_string(),
+                    } + "1",
+                ),
+            );
             left_map.extend(right_map);
             left_map
         }
