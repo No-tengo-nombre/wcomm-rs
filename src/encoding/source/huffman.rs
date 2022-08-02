@@ -27,7 +27,7 @@ impl SourceCoding for HuffmanCoding {
 
     fn encode(&self, msg: &Message) -> Message {
         let mut output = "".to_string();
-        for i in msg.as_u8_array() {
+        for i in msg.data_as_u8_array() {
             output += &self._code[&i];
         }
         return Message::from_binary(&output, msg.get_header());
@@ -44,7 +44,7 @@ impl SourceCoding for HuffmanCoding {
             &(msg.get_header().to_string() + &data[..(header_size as usize)]),
         );
 
-        for b in iter_msg.as_binary().chars() {
+        for b in iter_msg.data_as_binary().chars() {
             temp += &String::from(b);
             if decode_dict.contains_key(&temp) {
                 output += &String::from(decode_dict[&temp] as char);
@@ -52,7 +52,7 @@ impl SourceCoding for HuffmanCoding {
             }
         }
 
-        let out_msg = Message::from_string(&output, &iter_msg.get_header());
+        let out_msg = Message::from_binary("", &iter_msg.get_header()).data(&output);
         return out_msg;
     }
 }
