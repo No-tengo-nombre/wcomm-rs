@@ -168,7 +168,7 @@ impl Message {
         }
         return result;
     }
-    
+
     /**
      * Get the data as an array of 8-bit integers.
      */
@@ -179,7 +179,7 @@ impl Message {
         }
         return result;
     }
-    
+
     /**
      * Get the header as an array of 8-bit integers.
      */
@@ -197,21 +197,21 @@ impl Message {
     pub fn as_binary(&self) -> &str {
         return &self._total;
     }
-    
+
     /**
      * Get the data as a binary string.
      */
     pub fn data_as_binary(&self) -> &str {
         return &self._data;
     }
-    
+
     /**
      * Get the header as a binary string.
      */
     pub fn header_as_binary(&self) -> &str {
         return &self._header;
     }
-    
+
     /**
      * Get the message as a decoded string.
      */
@@ -222,7 +222,7 @@ impl Message {
         }
         return result;
     }
-    
+
     /**
      * Get the data as a decoded string.
      */
@@ -233,7 +233,7 @@ impl Message {
         }
         return result;
     }
-    
+
     /**
      * Get the header as a decoded string.
      */
