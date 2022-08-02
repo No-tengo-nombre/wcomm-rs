@@ -1,9 +1,20 @@
 use crate::encoding::source::SourceCoding;
 use crate::Message;
 use std::collections::{HashMap, VecDeque};
+use std::fmt;
 
 pub struct HuffmanCoding {
     _code: HashMap<u8, String>,
+}
+
+impl fmt::Display for HuffmanCoding {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut output = "{\n".to_string();
+        for vals in self._code.clone() {
+            output += &format!("    {}: {}\n", vals.0, vals.1);
+        }
+        return write!(f, "{}}}", output);
+    }
 }
 
 impl SourceCoding for HuffmanCoding {
@@ -50,6 +61,12 @@ impl HuffmanCoding {
     pub fn new() -> HuffmanCoding {
         return HuffmanCoding {
             _code: HuffmanCoding::empty_char_map(),
+        };
+    }
+
+    pub fn from_message(msg: &Message) -> HuffmanCoding {
+        return HuffmanCoding {
+            _code: HuffmanCoding::generate_code(msg),
         };
     }
 
