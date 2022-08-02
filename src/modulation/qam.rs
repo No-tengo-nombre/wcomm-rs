@@ -26,7 +26,7 @@ impl DigitalModulator for MQAM {
     }
 
     fn send_msg(&self, channel: &dyn Channel, msg: &Message, time: u32) {
-        // TODO
+        todo!();
     }
 
     fn get_raw_data(&self, msg: &Message, time: u32) -> Vec<f32> {

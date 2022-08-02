@@ -3,6 +3,9 @@ use crate::Message;
 use std::collections::{HashMap, VecDeque};
 use std::fmt;
 
+/**
+ * Huffman codes to compress a message.
+ */
 pub struct HuffmanCoding {
     _code: HashMap<u8, String>,
 }
@@ -58,23 +61,36 @@ impl SourceCoding for HuffmanCoding {
 }
 
 impl HuffmanCoding {
+    /**
+     * Create a new empty code.
+     */
     pub fn new() -> HuffmanCoding {
         return HuffmanCoding {
             _code: HuffmanCoding::empty_char_map(),
         };
     }
 
+    /**
+     * Create a code from a message.
+     */
     pub fn from_message(msg: &Message) -> HuffmanCoding {
         return HuffmanCoding {
             _code: HuffmanCoding::generate_code(msg),
         };
     }
 
+    /**
+     * Set the code.
+     */
     pub fn code(mut self, new_code: HashMap<u8, String>) -> HuffmanCoding {
         self._code = new_code;
         return self;
     }
 
+    /**
+     * Return the inverted code. This is only possible because of the non-redudancy
+     * of Huffman codes.
+     */
     pub fn inverted_code(&self) -> HashMap<String, u8> {
         let mut output = HashMap::<String, u8>::new();
         for vals in self._code.clone() {
