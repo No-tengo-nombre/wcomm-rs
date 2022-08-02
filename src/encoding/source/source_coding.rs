@@ -18,7 +18,7 @@ pub trait SourceCoding {
     /**
      * Decode the given message from this instance's code.
      */
-    fn decode(&self, msg: &Message) -> Message;
+    fn decode(&self, msg: &Message, header_size: u32) -> Message;
 
     /**
      * Generate an empty mapping for chars.
