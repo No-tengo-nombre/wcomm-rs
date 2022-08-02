@@ -38,7 +38,7 @@ impl Message {
         return Message {
             _data: string_to_binary(&data),
             _header: string_to_binary(&header),
-            _total: string_to_binary(&data) + &string_to_binary(&header),
+            _total: string_to_binary(&header) + &string_to_binary(&data),
         };
     }
 
@@ -49,7 +49,7 @@ impl Message {
         return Message {
             _data: data.to_string(),
             _header: header.to_string(),
-            _total: data.to_string() + &header.to_string(),
+            _total: header.to_string() + &data.to_string(),
         };
     }
 
