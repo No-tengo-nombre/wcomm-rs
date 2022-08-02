@@ -10,6 +10,8 @@ The currently implemented features are:
   - M-QAM
 - Channels
   - Sound
+- Source encoding
+  - Huffman encoding
 
 # License
 MIT License
