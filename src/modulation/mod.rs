@@ -1,3 +1,6 @@
+//! Types of digital modulation for messages.
+
+
 pub mod fsk;
 pub mod modulator;
 pub mod qam;
