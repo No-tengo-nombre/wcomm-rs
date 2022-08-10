@@ -1,6 +1,6 @@
 use crate::ChannelCoding;
 
-struct HammingCoding {
+pub struct HammingCoding {
     _total: u32,
     _data: u32,
 }
