@@ -1,5 +1,4 @@
-use wcomm::encoding::source::{HuffmanCoding, SourceCoding};
-use wcomm::Message;
+use wcomm::{HuffmanCoding, Message, SourceCoding};
 
 fn main() {
     let small_msg = Message::from_string("Hello world!", "HEADER");
@@ -17,10 +16,13 @@ fn main() {
 
     println!("\n\n");
 
-    let msg1 = Message::from_string("Peter Piper picked a peck of pickled peppers
+    let msg1 = Message::from_string(
+        "Peter Piper picked a peck of pickled peppers
     A peck of pickled peppers Peter Piper picked
     If Peter Piper picked a peck of pickled peppers
-    Where's the peck of pickled peppers Peter Piper picked?", "THIS IS A TEST HEADER");
+    Where's the peck of pickled peppers Peter Piper picked?",
+        "THIS IS A TEST HEADER",
+    );
     let encoder1 = HuffmanCoding::from_message(&msg1);
     let msg1_enc = encoder1.encode(&msg1);
     let msg1_dec = encoder1.decode(&msg1_enc, 0);

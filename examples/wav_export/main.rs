@@ -1,6 +1,4 @@
-use wcomm::channels::Sound;
-use wcomm::modulation::{MFSK, MQAM};
-use wcomm::Message;
+use wcomm::{Message, MFSK, MQAM, Sound};
 
 fn main() {
     let msg = Message::new().data("Peter Piper picked a peck of pickled peppers

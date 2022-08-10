@@ -1,6 +1,4 @@
-use wcomm::channels::{Channel, Sound};
-use wcomm::modulation::MFSK;
-use wcomm::Message;
+use wcomm::{Channel, Message, Sound, MFSK};
 
 fn main() {
     let modulation = MFSK::new(16);
