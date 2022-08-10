@@ -1,3 +1,7 @@
+/*!
+ * Mathematical functions for the package.
+ */
+
 pub const PI: f32 = 3.14157296;
 
 /**

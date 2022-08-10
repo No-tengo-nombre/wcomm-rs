@@ -1,5 +1,5 @@
-pub mod huffman;
-pub mod source_coding;
+mod huffman;
+mod source_coding;
 
-pub use huffman::HuffmanCoding;
-pub use source_coding::SourceCoding;
+pub use huffman::*;
+pub use source_coding::*;

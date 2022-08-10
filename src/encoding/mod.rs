@@ -1,5 +1,9 @@
-//! Types of encoding for messages.
+/*!
+ * Types of encoding for messages.
+ */
 
+mod channel;
+mod source;
 
-pub mod channel;
-pub mod source;
+pub use channel::*;
+pub use source::*;

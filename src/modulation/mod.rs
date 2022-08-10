@@ -1,10 +1,11 @@
-//! Types of digital modulation for messages.
+/*!
+ * Types of digital modulation for messages.
+ */
 
+mod fsk;
+mod modulator;
+mod qam;
 
-pub mod fsk;
-pub mod modulator;
-pub mod qam;
-
-pub use fsk::MFSK;
-pub use modulator::DigitalModulator;
-pub use qam::MQAM;
+pub use fsk::*;
+pub use modulator::*;
+pub use qam::*;

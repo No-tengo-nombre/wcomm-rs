@@ -1,9 +1,13 @@
 use std::fmt;
 
-pub mod channels;
-pub mod encoding;
-pub mod modulation;
+mod channels;
+mod encoding;
+mod modulation;
 pub mod utils;
+
+pub use channels::*;
+pub use encoding::*;
+pub use modulation::*;
 
 /**
  * Container of binary data, which also includes a header. This header

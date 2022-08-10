@@ -1,8 +1,10 @@
-//!Definitions for different types of channels which can transmit
-//!data.
+/*!
+ * Definitions for channels that transmit data.
+ */
 
-pub mod channel;
-pub mod sound;
 
-pub use channel::Channel;
-pub use sound::Sound;
+mod channel;
+mod sound;
+
+pub use channel::*;
+pub use sound::*;
