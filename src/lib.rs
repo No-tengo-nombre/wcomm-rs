@@ -5,7 +5,7 @@
  * modulation techniques: currently only digital modulation is
  * implemented, but analogue modulation techniques are planned for
  * the future.
- * 
+ *
  * The currently implemented features are:
  * - Source Coding
  *   - Huffman codes
@@ -28,9 +28,10 @@ pub use encoding::*;
 pub use modulation::*;
 
 /**
- * Container of binary data, which also includes a header. This header
- * is a special collection of data which isn't used in things like
- * encoding, as it is meant to be a lightweight message with
+ * Container of binary data, which also includes a header.
+ *
+ * The header is a special collection of data which isn't used in things
+ * like encoding, as it is meant to be a lightweight message with
  * information about the contained data.
  */
 pub struct Message {
