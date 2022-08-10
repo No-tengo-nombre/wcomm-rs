@@ -1,6 +1,6 @@
 use crate::channels::Channel;
-use crate::Message;
 use crate::utils::math;
+use crate::Message;
 
 /**
  * Any type of digital modulator.

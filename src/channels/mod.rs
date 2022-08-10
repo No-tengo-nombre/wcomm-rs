@@ -2,7 +2,6 @@
  * Definitions for channels that transmit data.
  */
 
-
 mod channel;
 mod sound;
 

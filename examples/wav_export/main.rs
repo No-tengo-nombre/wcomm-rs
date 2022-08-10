@@ -1,10 +1,12 @@
-use wcomm::{Message, MFSK, MQAM, Sound};
+use wcomm::{Message, Sound, MFSK, MQAM};
 
 fn main() {
-    let msg = Message::new().data("Peter Piper picked a peck of pickled peppers
+    let msg = Message::new().data(
+        "Peter Piper picked a peck of pickled peppers
 A peck of pickled peppers Peter Piper picked
 If Peter Piper picked a peck of pickled peppers
-Where's the peck of pickled peppers Peter Piper picked?");
+Where's the peck of pickled peppers Peter Piper picked?",
+    );
 
     let time = 100;
 
