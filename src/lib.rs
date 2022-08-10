@@ -1,3 +1,21 @@
+/*!
+ * WComm is a library to allow the user to send and receive information
+ * through different channels, using different features, such as source
+ * encoding and channel encoding. It also allows the use of different
+ * modulation techniques: currently only digital modulation is
+ * implemented, but analogue modulation techniques are planned for
+ * the future.
+ * 
+ * The currently implemented features are:
+ * - Source Coding
+ *   - Huffman codes
+ * - Digital modulation
+ *   - M-FSK
+ *   - M-QAM
+ * - Channels
+ *   - Sound
+ */
+
 use std::fmt;
 
 mod channels;
