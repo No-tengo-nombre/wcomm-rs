@@ -2,6 +2,10 @@
  * Mathematical functions for the package.
  */
 
+/**
+ * Mathematical constant, corresponding to the circunference of a circle
+ * of radius 0.5.
+ */
 pub const PI: f32 = 3.14157296;
 
 /**
